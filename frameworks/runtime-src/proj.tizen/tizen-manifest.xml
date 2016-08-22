@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns="http://tizen.org/ns/packages" api-version="2.3" package="com.tickbh.demo" version="1.0.0">
+    <ui-application appid="com.tickbh.demo" exec="hellolua" type="capp" multiple="false" taskmanage="true" nodisplay="false">
+        <icon>VisualUIEditor_2dx_demo_lua.png</icon>
+        <label>VisualUIEditor_2dx_demo_lua</label>
+	</ui-application>
+</manifest>
