@@ -10,6 +10,9 @@
     <Filter Include="resource">
       <UniqueIdentifier>{2d1d0979-58cd-4ab6-b91c-13650158f1fa}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Classes\cjson">
+      <UniqueIdentifier>{79b8ab16-26c2-49d6-84d8-3b99b96b4104}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Classes\AppDelegate.h">
@@ -35,6 +38,15 @@
     <ClInclude Include="..\Classes\ide-support\RuntimeLuaImpl.h">
       <Filter>Classes</Filter>
     </ClInclude>
+    <ClInclude Include="..\Classes\cjson\lua_cjson.h">
+      <Filter>Classes\cjson</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\cjson\strbuf.h">
+      <Filter>Classes\cjson</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\cjson\fpconv.h">
+      <Filter>Classes\cjson</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Classes\AppDelegate.cpp">
@@ -52,6 +64,15 @@
     </ClCompile>
     <ClCompile Include="..\Classes\ide-support\RuntimeLuaImpl.cpp">
       <Filter>Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\cjson\lua_cjson.c">
+      <Filter>Classes\cjson</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\cjson\strbuf.c">
+      <Filter>Classes\cjson</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\cjson\fpconv.c">
+      <Filter>Classes\cjson</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

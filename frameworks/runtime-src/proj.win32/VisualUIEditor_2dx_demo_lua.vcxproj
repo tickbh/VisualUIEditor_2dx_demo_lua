@@ -192,6 +192,9 @@ xcopy "$(ProjectDir)..\..\..\src" "$(LocalDebuggerWorkingDirectory)\src" /D /E /
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="..\Classes\AppDelegate.h" />
+    <ClInclude Include="..\Classes\cjson\fpconv.h" />
+    <ClInclude Include="..\Classes\cjson\lua_cjson.h" />
+    <ClInclude Include="..\Classes\cjson\strbuf.h" />
     <ClInclude Include="..\Classes\ide-support\CodeIDESupport.h" />
     <ClInclude Include="..\Classes\ide-support\lua_debugger.h" />
     <ClInclude Include="..\Classes\ide-support\RuntimeLuaImpl.h" />
@@ -203,6 +206,11 @@ xcopy "$(ProjectDir)..\..\..\src" "$(LocalDebuggerWorkingDirectory)\src" /D /E /
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Classes\AppDelegate.cpp" />
+    <ClCompile Include="..\Classes\cjson\fpconv.c" />
+    <ClCompile Include="..\Classes\cjson\lua_cjson.c">
+      <FileType>CppCode</FileType>
+    </ClCompile>
+    <ClCompile Include="..\Classes\cjson\strbuf.c" />
     <ClCompile Include="..\Classes\ide-support\lua_debugger.c" />
     <ClCompile Include="..\Classes\ide-support\RuntimeLuaImpl.cpp" />
     <ClCompile Include="main.cpp" />

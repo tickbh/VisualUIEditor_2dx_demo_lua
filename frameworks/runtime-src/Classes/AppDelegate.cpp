@@ -13,6 +13,8 @@
 #include "ide-support/RuntimeLuaImpl.h"
 #endif
 
+#include "cjson/lua_cjson.h"
+
 using namespace CocosDenshion;
 
 USING_NS_CC;
@@ -60,6 +62,8 @@ bool AppDelegate::applicationDidFinishLaunching()
     ScriptEngineManager::getInstance()->setScriptEngine(engine);
     lua_State* L = engine->getLuaStack()->getLuaState();
     lua_module_register(L);
+
+	luaopen_cjson(L);
 
     register_all_packages();
 
