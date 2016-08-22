@@ -28,64 +28,33 @@ function UILayer:CocosGenNodeByData(data, parent, isSetParent)
         if CheckPathRepeat(parent, data.path) then
             return nil
         end
-        node = UILayer:create(data.path, parent, true)
+        local temple = GetPathTemple(data.path)
+        if not temple then
+            temple = UILayer
+        end
+        node = temple:create(data.path, parent)
+    elseif data.type == "Sprite" then
+        node = cc.Sprite:create()
+    elseif data.type == "Scale9" then
+        node = ccui.Scale9Sprite:create()
+    elseif data.type == "LabelTTF" then
+        node = cc.LabelTTF:create()
+    elseif data.type == "Input" then
+        node = ccui.EditBox:create(cc.size(100, 20),  ccui.Scale9Sprite:create())
+    elseif data.type == "Slider" then
+        node = ccui.Slider:create()
+    elseif data.type == "CheckBox" then
+        node = ccui.CheckBox:create()
+    else
+        node = cc.Node:create()
     end
+
+    data.id and (node.setTag(data.id))
+
+
+    return node
 end
 
-function UILayer:CheckPathRepeat(parent, path)
-
-end
-
-
-
--- function cocosGenNodeByData(data, parent, isSetParent) {
---     if(!data) {
---         return;
---     }
---     let node = null;
---     if(isSetParent) {
---         node = parent;
---     } else if(data.path) {
---         node = new cc.Node();
---         node._path = data.path;
---         if(checkPathRepeat(parent, data.path)) {
---             return null;
---         }
---         cocosGenNodeByData(getPathData(data.path), node, true)
---         node._className = "SubPath:" + data.path;
---     } else if(data.type == "Scene" || !parent) {
---         node = new cc.Scene();
---         if(!parent) {
---             node.width = 800;
---             node.height = 400;
---         }
---     } else if(data.type == "Sprite") {
---         node = new cc.Sprite();
---         node._className = "Sprite";
---     } else if(data.type == "Scale9") {
---         node = new cc.Scale9Sprite();
---         node._className = "Scale9";
---     } else if(data.type == "LabelTTF") {
---         node = new cc.LabelTTF("");
---     } else if(data.type == "Input") {
---         node = new cc.EditBox(cc.size(100, 20), new cc.Scale9Sprite());
---         node._className = data.type;
---     } else if(data.type == "Slider") {
---         node = new ccui.Slider();
---         node._className = data.type;
---     } else if(data.type == "Button") {
---         node = new ccui.Button();
---         node._className = data.type;
---     } else if(data.type == "CheckBox") {
---         node = new ccui.CheckBox();
---         node._className = data.type;
---     } else if(data.type == "Layout") {
---         node = new ccui.Layout();
---         node._className = "Layout";
---     } else {
---         node = new cc.Node();
---         node._className = "Node";
---     }
 --     node._name = "";
 
 --     node.uuid = data.uuid || gen_uuid();
