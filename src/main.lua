@@ -14,9 +14,9 @@ local function main()
     local node = UILayer:create("ui/test.ui")
     scene:addChild(node)
 
-    display.newSprite("HelloWorld.png")
-        :move(display.center)
-        :addTo(scene)
+    -- display.newSprite("HelloWorld.png")
+    --     :move(display.center)
+    --     :addTo(scene)
     display.runScene(scene)
     -- require("app.MyApp"):create():run()
 end

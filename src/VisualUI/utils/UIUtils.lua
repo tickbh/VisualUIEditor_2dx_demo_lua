@@ -35,10 +35,10 @@ function GetCurJsonData(info)
 end
 
 function CovertToColor(value)
-    if not value or not value[0] or not value[3] then
+    if not value or not value[1] or not value[4] then
         return nil
     end
-    return cc.c4b(value[0], value[1], value[2], value[3])
+    return cc.c4b(value[1], value[2], value[3], value[4])
 end
 
 function CocosGenBaseNodeByData(data, parent, isSetParent)
@@ -83,7 +83,7 @@ function CocosGenBaseNodeByData(data, parent, isSetParent)
         local setFn = node.setPreferredSize or node.setContentSize
         local width = tonumber(data.width) or node.getContentSize().width
         local height = tonumber(data.height) or node.getContentSize().height
-        setFn(node, width, height)
+        setFn(node, cc.size(width, height))
     end
 
     local _ = data.x and node:setPositionX(tonumber(data.x))
@@ -133,7 +133,7 @@ function CocosGenBaseNodeByData(data, parent, isSetParent)
         local _ = data.fontSize and node:setFontSize(data.fontSize)
         local _ = data.fontName and node:setFontName(data.fontName)
         color = CovertToColor(data.fontColor)
-        local _ = color and node:setFontColor(color, true)
+        local _ = color and node:setFontColor(color)
         local _ = data.maxLength and node:setMaxLength(data.maxLength)
         local _ = data.placeHolder and node:setPlaceHolder(data.placeHolder)
         local _ = data.placeHolderFontSize and node:setPlaceholderFontSize(data.placeHolderFontSize)
@@ -141,47 +141,38 @@ function CocosGenBaseNodeByData(data, parent, isSetParent)
         local _ = data.inputFlag and node:setInputFlag(data.inputFlag)
         local _ = data.inputMode and node:setInputMode(data.inputMode)
         local _ = data.returnType and node:setReturnType(data.returnType)
-        
-        -- local _ = data.inputMode and node:setInputMode(data.inputMode)
-        -- local _ = data.inputMode and node:setInputMode(data.inputMode)
-        -- local _ = data.inputMode and node:setInputMode(data.inputMode)
-    end
 
---         data.inputFlag && (node.inputFlag = data.inputFlag);
---         data.inputMode && (node.inputMode = data.inputMode);
---         data.returnType && (node.returnType = data.returnType);
+        SetNodeSpriteFrame(data.spriteBg, node, function(node, frame)
+                node:initWithSizeAndBackgroundSprite(node:getContentSize(), cc.Scale9Sprite:createWithSpriteFrame(frame))
+            end)
+    elseif data.type == "Sprite" then
+        SetNodeSpriteFrame(data.spriteFrame, node, node.setSpriteFrame)
 
---         if(data.spriteBg && getFullPathForName(data.spriteBg)) {
---             let fullpath = getFullPathForName(data.spriteBg);
---             node.initWithBackgroundSprite(new cc.Scale9Sprite(fullpath));
---             node._spriteBg = data.spriteBg;
---         }
-
---     } else if(data.type == "Sprite") {
---         if(data.spriteFrame && getFullPathForName(data.spriteFrame)) {
---             let fullpath = getFullPathForName(data.spriteFrame);
---             node.init(fullpath);
---             node._spriteFrame = data.spriteFrame;
---         }
---         data.blendSrc && (node.setBlendFunc(parseInt(data.blendSrc), node.getBlendFunc().dst));
---         data.blendDst && (node.getBlendFunc().src, node.setBlendFunc(parseInt(data.blendDst)));
---     } else if(data.type == "Scale9") {
---         let size = node.getContentSize();
-
---         if(data.spriteFrame && getFullPathForName(data.spriteFrame)) {
---             let fullpath = getFullPathForName(data.spriteFrame);
---             node.initWithFile(fullpath);
---             node._spriteFrame = data.spriteFrame;
---         }
-
---         if(!cc.sizeEqualToSize(size, cc.size(0, 0))) {
---             node.setPreferredSize(size);
---         }
-
+        local _ = data.blendSrc and node:setBlendFunc({src=data.blendSrc, dst=node:getBlendFunc().dst})
+        local _ = data.blendDst and node:setBlendFunc({src=node:getBlendFunc().src, dst=data.blendDst})
+    elseif data.type == "Scale9" then
+        if data.spriteFrame then
+            local size = node:getContentSize()
+            SetNodeSpriteFrame(data.spriteFrame, node, node.initWithSpriteFrame)
+            if(size.width ~= 0 or size.height ~= 0) then
+                node:setPreferredSize(size)
+            end
+        end
 --         data.insetLeft && (node.insetLeft = data.insetLeft);
 --         data.insetTop && (node.insetTop = data.insetTop);
 --         data.insetRight && (node.insetRight = data.insetRight);
 --         data.insetBottom && (node.insetBottom = data.insetBottom);
+    elseif data.type == "Slider" then
+        local _ = data.percent and node:setPercent(data.percent)
+        
+        SetNodeBySpriteFrameName(data.barBg, node, node.loadBarTexture)
+        SetNodeBySpriteFrameName(data.barProgress, node, node.loadProgressBarTexture)
+        SetNodeBySpriteFrameName(data.barNormalBall, node, node.loadSlidBallTextureNormal)
+        SetNodeBySpriteFrameName(data.barSelectBall, node, node.loadSlidBallTexturePressed)
+        SetNodeBySpriteFrameName(data.barDisableBall, node, node.loadSlidBallTextureDisabled)
+    end
+
+
 --     } else if(data.type == "Slider") {
 --         (data["percent"]) && (node.percent = data["percent"]);
 --         setNodeSpriteFrame("barBg", data["barBg"], node, node.loadBarTexture);
@@ -231,4 +222,49 @@ function CocosGenBaseNodeByData(data, parent, isSetParent)
     end
 
     return node
+end
+
+function SetNodeBySpriteFrameName(name, node, func, resType)
+    if not name then
+        return
+    end
+    local frame = GetSpriteFrameForName(name)
+    if not frame then
+        return
+    end
+
+    func(node, name, resType or 1)
+end
+
+function SetNodeSpriteFrame(name, node, func)
+    if not name then
+        return
+    end
+    local frame = GetSpriteFrameForName(name)
+    if not frame then
+        return
+    end
+
+    func(node, frame)
+end
+
+function GetSpriteFrameForName(name)
+    if type(name) ~= "string" then
+        return nil
+    end
+
+    local frame = cc.SpriteFrameCache:getInstance():getSpriteFrameByName(name)
+    if not frame then
+        local filePath = cc.FileUtils:getInstance():fullPathForFilename(name)
+        if string.len(filePath) == 0 then
+            return nil
+        end
+        local sprite = cc.Sprite:create(filePath)
+        if not sprite then
+            return nil
+        end
+        frame = cc.SpriteFrame:createWithTexture(sprite:getTexture(), sprite:getTextureRect())
+        cc.SpriteFrameCache:getInstance():addSpriteFrame(frame, name)
+    end
+    return frame
 end

@@ -270,13 +270,13 @@
             "height": "100",
             "x": 918,
             "y": 594,
-            "type": "SubPath:ui/sub1.ui",
+            "type": "SubPath:/ui/sub1.ui",
             "anchorX": 0,
             "anchorY": 0,
             "path": "/ui/sub1.ui"
         },
         {
-            "width": "100",
+            "width": "49",
             "height": "58",
             "x": 822,
             "y": 156,
@@ -291,6 +291,33 @@
             ],
             "placeHolder": "VisualUI",
             "spriteBg": "res/default/shurukuang.png"
+        },
+        {
+            "width": "46",
+            "height": "46",
+            "x": 517,
+            "y": 421,
+            "type": "Scale9",
+            "spriteFrame": "res/default/Scale9.png"
+        },
+        {
+            "width": "46",
+            "height": "36",
+            "x": 676,
+            "y": 433,
+            "type": "Button",
+            "bgNormal": "res/default/ButtonNormal.png",
+            "bgSelect": "res/default/ButtonSelect.png",
+            "bgDisable": "res/default/ButtonDisable.png",
+            "titleText": "21321321",
+            "fontName": "Arial",
+            "fontSize": 16,
+            "fontColor": [
+                75,
+                63,
+                63,
+                255
+            ]
         }
     ]
 }
