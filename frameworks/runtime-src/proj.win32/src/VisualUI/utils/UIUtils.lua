@@ -66,14 +66,15 @@ function CocosGenBaseNodeByData(data, parent, isSetParent)
         node = ccui.Scale9Sprite:create()
     elseif data.type == "LabelTTF" then
         node = cc.LabelTTF:create()
-        node:setString("aaaaaaaaaaaaaaaaaad")
-        node:setPosition(cc.p(200, 300))
     elseif data.type == "Input" then
         node = ccui.EditBox:create(cc.size(100, 20),  ccui.Scale9Sprite:create())
+        node:setFontSize(14)
     elseif data.type == "Slider" then
         node = ccui.Slider:create()
     elseif data.type == "CheckBox" then
         node = ccui.CheckBox:create()
+    elseif data.type == "Button" then
+        node = ccui.Button:create()
     else
         node = cc.Node:create()
     end
@@ -143,7 +144,9 @@ function CocosGenBaseNodeByData(data, parent, isSetParent)
         local _ = data.returnType and node:setReturnType(data.returnType)
 
         SetNodeSpriteFrame(data.spriteBg, node, function(node, frame)
+                local x, y = node:getPosition()
                 node:initWithSizeAndBackgroundSprite(node:getContentSize(), cc.Scale9Sprite:createWithSpriteFrame(frame))
+                node:setPosition(x, y)
             end)
     elseif data.type == "Sprite" then
         SetNodeSpriteFrame(data.spriteFrame, node, node.setSpriteFrame)
@@ -170,48 +173,26 @@ function CocosGenBaseNodeByData(data, parent, isSetParent)
         SetNodeBySpriteFrameName(data.barNormalBall, node, node.loadSlidBallTextureNormal)
         SetNodeBySpriteFrameName(data.barSelectBall, node, node.loadSlidBallTexturePressed)
         SetNodeBySpriteFrameName(data.barDisableBall, node, node.loadSlidBallTextureDisabled)
+    elseif data.type == "Button" then
+        SetNodeBySpriteFrameName(data.bgNormal, node, node.loadTextureNormal)
+        SetNodeBySpriteFrameName(data.bgSelect, node, node.loadTexturePressed)
+        SetNodeBySpriteFrameName(data.bgDisable, node, node.loadTextureDisabled)
+
+        local _ = data.titleText and node:setTitleText(data.titleText)
+        local _ = data.fontSize and node:setTitleFontSize(data.fontSize)
+        local _ = data.fontName and node:setTitleFontName(data.fontName)
+        color = CovertToColor(data.fontColor)
+        local _ = color and node:setTitleColor(color)
+    elseif data.type == "CheckBox" then
+        SetNodeBySpriteFrameName(data.back, node, node.loadTextureBackGround)
+        SetNodeBySpriteFrameName(data.backSelect, node, node.loadTextureBackGroundSelected)
+        SetNodeBySpriteFrameName(data.active, node, node.loadTextureFrontCross)
+        SetNodeBySpriteFrameName(data.backDisable, node, node.loadTextureBackGroundDisabled)
+        SetNodeBySpriteFrameName(data.activeDisable, node, node.loadTextureFrontCrossDisabled)
+
+        local _ = data.select and node:setSelected(data.select)
+        local _ = data.enable and node:setTouchEnabled(data.enable)
     end
-
-
---     } else if(data.type == "Slider") {
---         (data["percent"]) && (node.percent = data["percent"]);
---         setNodeSpriteFrame("barBg", data["barBg"], node, node.loadBarTexture);
---         setNodeSpriteFrame("barProgress", data["barProgress"], node, node.loadProgressBarTexture);
---         setNodeSpriteFrame("barNormalBall", data["barNormalBall"], node, node.loadSlidBallTextureNormal);
---         setNodeSpriteFrame("barSelectBall", data["barSelectBall"], node, node.loadSlidBallTexturePressed);
---         setNodeSpriteFrame("barDisableBall", data["barDisableBall"], node, node.loadSlidBallTextureDisabled);
---     } else if(data.type == "Button") {
---         (data["percent"]) && (node.percent = data["percent"]);
---         setNodeSpriteFrame("bgNormal", data["bgNormal"], node, node.loadTextureNormal);
---         setNodeSpriteFrame("bgSelect", data["bgSelect"], node, node.loadTexturePressed);
---         setNodeSpriteFrame("bgDisable", data["bgDisable"], node, node.loadTextureDisabled);
-        
---         (data["titleText"]) && (node.setTitleText(data["titleText"]));
---         (data["fontName"]) && (node.setTitleFontName(data["fontName"]));
---         (data["fontSize"]) && (node.setTitleFontSize(data["fontSize"]));
---         (data["fontColor"]) && (node.setTitleColor(covertToColor(data["fontColor"])));
---     } else if(node._className == "CheckBox") {
---         setNodeSpriteFrame("back", data["back"], node, node.loadTextureBackGround);
---         setNodeSpriteFrame("backSelect", data["backSelect"], node, node.loadTextureBackGroundSelected);
---         setNodeSpriteFrame("active", data["active"], node, node.loadTextureFrontCross);
---         setNodeSpriteFrame("backDisable", data["backDisable"], node, node.loadTextureBackGroundDisabled);
---         setNodeSpriteFrame("activeDisable", data["activeDisable"], node, node.loadTextureFrontCrossDisabled);
-
---         (data["select"]) && (node.setSelected(data["select"]));
---         (data["enable"]) && (node.setTouchEnabled(data["enable"]));
---     } else if(node._className == "Layout") {
---         setNodeSpriteFrame("backGroundImageFileName", data["bkImg"], node, node.setBackGroundImage);
---         (data["bkScaleEnable"]) && (node.setBackGroundImageScale9Enabled(data["bkScaleEnable"]));
-        
---         (data["bkColorType"]) && (node.setBackGroundColorType(data["bkColorType"]));
---         (covertToColor(data.bkColor)) && (node.setBackGroundColor(covertToColor(data.bkColor)));
---         if(covertToColor(data.bkStartColor) && covertToColor(data.bkEndColor)) {
---             node.setBackGroundColor(covertToColor(data.bkStartColor), covertToColor(data.bkEndColor));
---         }
-
---         (data["layoutType"]) && (node.setLayoutType(data["layoutType"]));
---         (data["clippingEnabled"]) && (node.setClippingEnabled(data["clippingEnabled"]));
---         (data["clippingType"]) && (node.setClippingType(data["clippingType"]));
 
 
     for _,subdata in ipairs(data.children or {}) do
