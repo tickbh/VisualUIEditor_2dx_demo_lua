@@ -13,6 +13,7 @@
 #include "ide-support/RuntimeLuaImpl.h"
 #endif
 
+
 #include "cjson/lua_cjson.h"
 
 using namespace CocosDenshion;
@@ -74,17 +75,17 @@ bool AppDelegate::applicationDidFinishLaunching()
     //LuaStack* stack = engine->getLuaStack();
     //register_custom_function(stack->getLuaState());
 
-#if (COCOS2D_DEBUG > 0) && (CC_CODE_IDE_DEBUG_SUPPORT > 0)
-    // NOTE:Please don't remove this call if you want to debug with Cocos Code IDE
-    auto runtimeEngine = RuntimeEngine::getInstance();
-    runtimeEngine->addRuntime(RuntimeLuaImpl::create(), kRuntimeEngineLua);
-    runtimeEngine->start();
-#else
+//#if (COCOS2D_DEBUG > 0) && (CC_CODE_IDE_DEBUG_SUPPORT > 0)
+//    // NOTE:Please don't remove this call if you want to debug with Cocos Code IDE
+//    auto runtimeEngine = RuntimeEngine::getInstance();
+//    runtimeEngine->addRuntime(RuntimeLuaImpl::create(), kRuntimeEngineLua);
+//    runtimeEngine->start();
+//#else
     if (engine->executeScriptFile("src/main.lua"))
     {
         return false;
     }
-#endif
+//#endif
 
     return true;
 }

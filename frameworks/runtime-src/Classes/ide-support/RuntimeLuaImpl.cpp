@@ -12,8 +12,8 @@
 #include <string>
 
 #include "lua_debugger.h"
-#include "CCLuaEngine.h"
-#include "LuaBasicConversions.h"
+#include "scripting/lua-bindings/manual/CCLuaEngine.h"
+#include "scripting/lua-bindings/manual/LuaBasicConversions.h"
 #include "lua_module_register.h"
 
 #include "runtime/Runtime.h"

@@ -1,0 +1,27 @@
+{
+    "width": "800",
+    "height": "400",
+    "x": 0,
+    "y": 0,
+    "type": "Scene",
+    "children": [
+        {
+            "width": "128",
+            "height": "128",
+            "x": 348,
+            "y": 279,
+            "type": "Sprite",
+            "spriteFrame": "res/grid.png"
+        },
+        {
+            "width": "75",
+            "height": "23",
+            "x": 434,
+            "y": 190,
+            "type": "LabelTTF",
+            "string": "VisualUI",
+            "fontSize": 20,
+            "fontName": "Arial"
+        }
+    ]
+}

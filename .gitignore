@@ -17,3 +17,5 @@ Debug.win32
 *.sdf
 *.suo
 /tdengine_ddz/frameworks/runtime-src/proj.win32/Debug/td_proto_cpp.exe
+/frameworks/runtime-src/proj.win32/*.opendb
+/frameworks/runtime-src/proj.win32/*.db
