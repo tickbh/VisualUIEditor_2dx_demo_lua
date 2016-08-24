@@ -276,7 +276,7 @@
             "path": "/ui/sub1.ui"
         },
         {
-            "width": "100",
+            "width": "49",
             "height": "58",
             "x": 741,
             "y": 179,
@@ -307,6 +307,8 @@
             "y": 409,
             "type": "Button",
             "scaleX": 1.7784322389414635,
+            "touchEnabled": false,
+            "touchListener": "button",
             "bgNormal": "res/default/ButtonNormal.png",
             "bgSelect": "res/default/ButtonSelect.png",
             "bgDisable": "res/default/ButtonDisable.png",

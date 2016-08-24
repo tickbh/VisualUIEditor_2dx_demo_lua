@@ -41,12 +41,22 @@ function CovertToColor(value)
     return cc.c4b(value[1], value[2], value[3], value[4])
 end
 
+function AddTouchEvent(node, addFunc, controlNode, baseFunc, touchListener)
+    if not controlNode or not baseFunc then
+        return
+    end
+    local listener = baseFunc
+    if touchListener and controlNode[touchListener] then
+        listener = controlNode[touchListener]
+    end
+
+    addFunc(node, handler(controlNode, listener))
+end
+
 function CocosGenBaseNodeByData(data, parent, isSetParent, controlNode)
-    dump(data)
     if not data then
         return
     end
-
 
     local node = nil
     if isSetParent then
@@ -68,27 +78,44 @@ function CocosGenBaseNodeByData(data, parent, isSetParent, controlNode)
         node = cc.LabelTTF:create()
     elseif data.type == "Input" then
         node = ccui.EditBox:create(cc.size(100, 20),  ccui.Scale9Sprite:create())
-        node:onEditHandler(handler(controlNode, controlNode.eventListener))
+        AddTouchEvent(node, node.onEditHandler, controlNode, controlNode.eventListener, data.touchListener)
         node:setFontSize(14)
     elseif data.type == "Slider" then
         node = ccui.Slider:create()
-        node:onEvent(handler(controlNode, controlNode.eventListener))
+        AddTouchEvent(node, node.onEvent, controlNode, controlNode.eventListener, data.touchListener)
     elseif data.type == "CheckBox" then
         node = ccui.CheckBox:create()
-        node:onEvent(handler(controlNode, controlNode.eventListener))
+        AddTouchEvent(node, node.onEvent, controlNode, controlNode.eventListener, data.touchListener)
     elseif data.type == "Button" then
         node = ccui.Button:create()
-        node:addTouchEventListener(function(sender, eventType)
-            local event = {}
-            event.eventType = eventType
-            event.target = sender
-            controlNode.eventListener(controlNode, event)
-        end)
-        -- node:onEvent(handler(controlNode, controlNode.eventListener))
+        local func = function(node, callback) 
+            node:addTouchEventListener(function(sender, eventType)
+                local event = {}
+                if eventType == 0 then
+                    event.name = "began"
+                elseif eventType == 1 then
+                    event.name = "moved"
+                elseif eventType == 2 then
+                    event.name = "ended"
+                else
+                    event.name = "canceled"
+                end
+                event.target = sender
+                callback(event)
+            end)
+        end
+        print("xxxxxxxxxxxxxxxxxxxxoooooooooooooo")
+        dump(data)
+        dump(data.touchListener)
+        AddTouchEvent(node, func, controlNode, controlNode.eventListener, data.touchListener)
     else
         node = cc.Node:create()
     end
 
+    if type(data.touchEnabled) == "boolean" and node.setTouchEnabled then
+        node:setTouchEnabled(data.touchEnabled)
+    end
+ 
     local _ = data.id and node:setName(data.id)
     if data.width or data.height then
         local setFn = node.setPreferredSize or node.setContentSize

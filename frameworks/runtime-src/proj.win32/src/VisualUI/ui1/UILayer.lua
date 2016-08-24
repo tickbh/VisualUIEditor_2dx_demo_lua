@@ -1,5 +1,5 @@
 local UILayer=class("UILayer", function()
-    return cc.Node:create()
+    return cc.Layer:create()
 end)
 cc.exports.UILayer=UILayer
 cc.exports.temp=""
