@@ -1,11 +1,13 @@
-local UILayer=class("UILayer", function(data, parent, isSetParent)
+local UILayer=class("UILayer", function(data, parent)
     local info = GetCurJsonData(data)
     dump(info)
-    return CocosGenBaseNodeByData(GetCurJsonData(data), parent, isSetParent) or cc.Node:create()
+    return cc.Node:create()
 end)
 cc.exports.UILayer=UILayer
 
-function UILayer:ctor(info, parent, isSetParent)
+function UILayer:ctor(data, parent)
+
+    CocosGenBaseNodeByData(GetCurJsonData(data), self, true, self)
     -- EventManager:regster(self)
     self:SetNodeAttrib(jsonData, parent)
     -- self:onInited()
@@ -25,6 +27,10 @@ function UILayer:SetNodeAttrib(data, parent)
 --     (!isNull(data.y)) && (node.y = parseFloat(data.y));
 
     return node
+end
+
+function UILayer:eventListener(event)
+    dump(event)
 end
 
 --     node._name = "";

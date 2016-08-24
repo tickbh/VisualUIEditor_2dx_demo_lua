@@ -41,7 +41,7 @@ function CovertToColor(value)
     return cc.c4b(value[1], value[2], value[3], value[4])
 end
 
-function CocosGenBaseNodeByData(data, parent, isSetParent)
+function CocosGenBaseNodeByData(data, parent, isSetParent, controlNode)
     dump(data)
     if not data then
         return
@@ -68,13 +68,23 @@ function CocosGenBaseNodeByData(data, parent, isSetParent)
         node = cc.LabelTTF:create()
     elseif data.type == "Input" then
         node = ccui.EditBox:create(cc.size(100, 20),  ccui.Scale9Sprite:create())
+        node:onEditHandler(handler(controlNode, controlNode.eventListener))
         node:setFontSize(14)
     elseif data.type == "Slider" then
         node = ccui.Slider:create()
+        node:onEvent(handler(controlNode, controlNode.eventListener))
     elseif data.type == "CheckBox" then
         node = ccui.CheckBox:create()
+        node:onEvent(handler(controlNode, controlNode.eventListener))
     elseif data.type == "Button" then
         node = ccui.Button:create()
+        node:addTouchEventListener(function(sender, eventType)
+            local event = {}
+            event.eventType = eventType
+            event.target = sender
+            controlNode.eventListener(controlNode, event)
+        end)
+        -- node:onEvent(handler(controlNode, controlNode.eventListener))
     else
         node = cc.Node:create()
     end
@@ -196,7 +206,7 @@ function CocosGenBaseNodeByData(data, parent, isSetParent)
 
 
     for _,subdata in ipairs(data.children or {}) do
-        local child = CocosGenBaseNodeByData(subdata, node)
+        local child = CocosGenBaseNodeByData(subdata, node, false, controlNode)
         if child then
             node:addChild(child)
         end
