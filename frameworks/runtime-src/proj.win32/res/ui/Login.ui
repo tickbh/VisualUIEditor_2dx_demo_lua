@@ -48,6 +48,7 @@
             "type": "Input",
             "anchorX": 0,
             "fontName": "Arial",
+            "fontSize": 20,
             "fontColor": [
                 255,
                 255,
@@ -66,13 +67,14 @@
             "type": "Input",
             "anchorX": 0,
             "fontName": "Arial",
+            "fontSize": 20,
             "fontColor": [
                 255,
                 255,
                 255,
                 255
             ],
-            "placeHolder": "请输入用户名：",
+            "placeHolder": "请输入密码：",
             "spriteBg": "uires/xinxikuang.png"
         },
         {
@@ -80,14 +82,15 @@
             "height": "74",
             "x": 608,
             "y": 99,
+            "id": "loginBtn",
             "type": "Button",
             "touchEnabled": true,
+            "touchListener": "DoLogin",
             "scale9Enable": true,
             "bgNormal": "uires/button.png",
-            "bgSelect": "uires/button.png",
-            "bgDisable": "uires/button.png",
+            "titleText": "登陆",
             "fontName": "Arial",
-            "fontSize": 16
+            "fontSize": 26
         }
     ]
 }

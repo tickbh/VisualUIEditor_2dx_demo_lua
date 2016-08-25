@@ -31,7 +31,7 @@
         {
             "width": "128",
             "height": "37",
-            "x": 464,
+            "x": 469,
             "y": 279,
             "type": "LabelTTF",
             "string": "用户名：",
@@ -42,12 +42,13 @@
         {
             "width": "300",
             "height": "58",
-            "x": 530,
+            "x": 535,
             "y": 281,
             "id": "userName",
             "type": "Input",
             "anchorX": 0,
             "fontName": "Arial",
+            "fontSize": 20,
             "fontColor": [
                 255,
                 255,
@@ -66,6 +67,7 @@
             "type": "Input",
             "anchorX": 0,
             "fontName": "Arial",
+            "fontSize": 20,
             "fontColor": [
                 255,
                 255,
@@ -86,8 +88,6 @@
             "touchListener": "DoLogin",
             "scale9Enable": true,
             "bgNormal": "uires/button.png",
-            "bgSelect": "uires/button.png",
-            "bgDisable": "uires/button.png",
             "titleText": "登陆",
             "fontName": "Arial",
             "fontSize": 26
