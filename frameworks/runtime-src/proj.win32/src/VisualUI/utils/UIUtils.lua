@@ -142,8 +142,8 @@ function CocosGenBaseNodeByData(data, parent, isSetParent, controlNode)
     local _ = data.top and parent and node:setPositionY(parent.getContentSize().height - tonumber(data.top))
 
     if data.anchorX or data.anchorY then
-        local anchorX = tonumber(data.anchorX) or node.getAnchorPoint().x
-        local anchorY = tonumber(data.anchorY) or node.getAnchorPoint().y
+        local anchorX = tonumber(data.anchorX) or node:getAnchorPoint().x
+        local anchorY = tonumber(data.anchorY) or node:getAnchorPoint().y
         node:setAnchorPoint(anchorX, anchorY)
     end
 

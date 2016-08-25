@@ -10,8 +10,3 @@ end
 function UILayer:eventListener(event)
     dump(event)
 end
-
-function UILayer:button(event)
-    print("button callback")
-    dump(event)
-end

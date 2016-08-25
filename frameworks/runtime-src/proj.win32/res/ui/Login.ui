@@ -1,0 +1,93 @@
+{
+    "width": "1280",
+    "height": "720",
+    "x": 0,
+    "y": 0,
+    "type": "Scene",
+    "anchorX": 0,
+    "anchorY": 0,
+    "children": [
+        {
+            "width": "1680",
+            "height": "1104",
+            "x": 1,
+            "y": 3,
+            "type": "Sprite",
+            "anchorX": 0,
+            "anchorY": 0,
+            "spriteFrame": "uires/loginBg.jpg"
+        },
+        {
+            "width": "96",
+            "height": "37",
+            "x": 489,
+            "y": 204,
+            "type": "LabelTTF",
+            "string": "密码：",
+            "textAlign": 2,
+            "fontSize": 32,
+            "fontName": "Arial"
+        },
+        {
+            "width": "128",
+            "height": "37",
+            "x": 464,
+            "y": 279,
+            "type": "LabelTTF",
+            "string": "用户名：",
+            "textAlign": 2,
+            "fontSize": 32,
+            "fontName": "Arial"
+        },
+        {
+            "width": "300",
+            "height": "58",
+            "x": 530,
+            "y": 281,
+            "id": "userName",
+            "type": "Input",
+            "anchorX": 0,
+            "fontName": "Arial",
+            "fontColor": [
+                255,
+                255,
+                255,
+                255
+            ],
+            "placeHolder": "请输入用户名：",
+            "spriteBg": "uires/xinxikuang.png"
+        },
+        {
+            "width": "300",
+            "height": "58",
+            "x": 531,
+            "y": 208,
+            "id": "passwordName",
+            "type": "Input",
+            "anchorX": 0,
+            "fontName": "Arial",
+            "fontColor": [
+                255,
+                255,
+                255,
+                255
+            ],
+            "placeHolder": "请输入用户名：",
+            "spriteBg": "uires/xinxikuang.png"
+        },
+        {
+            "width": "300",
+            "height": "74",
+            "x": 608,
+            "y": 99,
+            "type": "Button",
+            "touchEnabled": true,
+            "scale9Enable": true,
+            "bgNormal": "uires/button.png",
+            "bgSelect": "uires/button.png",
+            "bgDisable": "uires/button.png",
+            "fontName": "Arial",
+            "fontSize": 16
+        }
+    ]
+}
