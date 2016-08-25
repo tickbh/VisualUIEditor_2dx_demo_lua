@@ -1,3 +1,5 @@
+--UI创建模块
+module("UIUtils", package.seeall)
 
 local PathTemple = {}
 
@@ -23,7 +25,7 @@ end
 function GetCurJsonData(info)
     dump(info)
     if type(info) == "string" then
-        local jsonData = GetJsonDataFromUI(info)
+        local jsonData = UIDataUtils.GetJsonDataFromUI(info)
         if not jsonData then
             return nil
         end
@@ -66,6 +68,8 @@ function CocosGenBaseNodeByData(data, parent, isSetParent, controlNode)
             return nil
         end
         local temple = GetPathTemple(data.path)
+        print("data.path is " .. data.path)
+        dump(temple)
         if not temple then
             temple = UILayer
         end
@@ -77,7 +81,14 @@ function CocosGenBaseNodeByData(data, parent, isSetParent, controlNode)
     elseif data.type == "LabelTTF" then
         node = cc.LabelTTF:create()
     elseif data.type == "Input" then
-        node = ccui.EditBox:create(cc.size(100, 20),  ccui.Scale9Sprite:create())
+        data.spriteBg = data.spriteBg or ""
+        local frame = GetSpriteFrameForName(data.spriteBg)
+        if not frame then
+            node = ccui.EditBox:create(cc.size(100, 20),  ccui.Scale9Sprite:create())
+        else
+            node = ccui.EditBox:create(cc.size(100, 20),  data.spriteBg, 1)
+        end
+
         AddTouchEvent(node, node.onEditHandler, controlNode, controlNode.eventListener, data.touchListener)
         node:setFontSize(14)
     elseif data.type == "Slider" then
@@ -104,9 +115,6 @@ function CocosGenBaseNodeByData(data, parent, isSetParent, controlNode)
                 callback(event)
             end)
         end
-        print("xxxxxxxxxxxxxxxxxxxxoooooooooooooo")
-        dump(data)
-        dump(data.touchListener)
         AddTouchEvent(node, func, controlNode, controlNode.eventListener, data.touchListener)
     else
         node = cc.Node:create()
@@ -180,11 +188,11 @@ function CocosGenBaseNodeByData(data, parent, isSetParent, controlNode)
         local _ = data.inputMode and node:setInputMode(data.inputMode)
         local _ = data.returnType and node:setReturnType(data.returnType)
 
-        SetNodeSpriteFrame(data.spriteBg, node, function(node, frame)
-                local x, y = node:getPosition()
-                node:initWithSizeAndBackgroundSprite(node:getContentSize(), cc.Scale9Sprite:createWithSpriteFrame(frame))
-                node:setPosition(x, y)
-            end)
+        -- SetNodeSpriteFrame(data.spriteBg, node, function(node, frame)
+        --         local x, y = node:getPosition()
+        --         node:initWithSizeAndBackgroundSprite(node:getContentSize(), cc.Scale9Sprite:createWithSpriteFrame(frame))
+        --         node:setPosition(x, y)
+        --     end)
     elseif data.type == "Sprite" then
         SetNodeSpriteFrame(data.spriteFrame, node, node.setSpriteFrame)
 

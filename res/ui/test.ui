@@ -249,8 +249,8 @@
         {
             "width": "40",
             "height": "40",
-            "x": 421,
-            "y": 365,
+            "x": 349,
+            "y": 332,
             "type": "Node",
             "anchorX": 0,
             "anchorY": 0,
@@ -268,21 +268,21 @@
         {
             "width": "300",
             "height": "100",
-            "x": 918,
-            "y": 594,
-            "type": "SubPath:/ui/sub1.ui",
+            "x": 76,
+            "y": 549,
+            "type": "SubPath:ui/sub1.ui",
             "anchorX": 0,
             "anchorY": 0,
-            "path": "/ui/sub1.ui"
+            "path": "ui/sub1.ui"
         },
         {
             "width": "49",
             "height": "58",
-            "x": 741,
-            "y": 179,
+            "x": 721,
+            "y": 299,
             "type": "Input",
-            "touchEnabled": false,
-            "string": "d222222222222222222222",
+            "touchEnabled": true,
+            "string": "fdsa",
             "fontName": "Arial",
             "fontColor": [
                 255,
@@ -308,7 +308,7 @@
             "y": 409,
             "type": "Button",
             "scaleX": 1.7784322389414635,
-            "touchEnabled": false,
+            "touchEnabled": true,
             "touchListener": "button",
             "bgNormal": "res/default/ButtonNormal.png",
             "bgSelect": "res/default/ButtonSelect.png",
@@ -329,13 +329,13 @@
             "x": 214,
             "y": 299,
             "type": "CheckBox",
+            "touchEnabled": true,
             "back": "res/default/CheckBoxNormal.png",
             "backSelect": "res/default/CheckBoxSelect.png",
             "active": "res/default/CheckBoxNodeNormal.png",
             "backDisable": "res/default/CheckBoxDisable.png",
             "activeDisable": "res/default/CheckBoxNodeDisable.png",
-            "select": true,
-            "enable": true
+            "select": true
         }
     ]
 }

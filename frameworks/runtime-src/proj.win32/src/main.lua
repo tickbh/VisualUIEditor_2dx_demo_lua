@@ -8,6 +8,7 @@ CC_DISABLE_GLOBAL = false
 require "config"
 require "cocos.init"
 require "VisualUI.init"
+require "test.UISub1"
 
 local function main()
     local scene = display.newScene("MAIN_SCENE_CLASS")

@@ -1,3 +1,6 @@
+--UI创建模块
+module("UIDataUtils", package.seeall)
+
 local CacheDataTable = {}
 
 function GetJsonDataFromUI(name)
