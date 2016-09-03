@@ -47,6 +47,7 @@
             "id": "userName",
             "type": "Input",
             "anchorX": 0,
+            "string": "ywt",
             "fontName": "Arial",
             "fontSize": 20,
             "fontColor": [
@@ -66,6 +67,7 @@
             "id": "passwordName",
             "type": "Input",
             "anchorX": 0,
+            "string": "123456",
             "fontName": "Arial",
             "fontSize": 20,
             "fontColor": [
@@ -80,9 +82,23 @@
         {
             "width": "300",
             "height": "74",
-            "x": 608,
-            "y": 99,
+            "x": 950,
+            "y": 101,
             "id": "loginBtn",
+            "type": "Button",
+            "touchEnabled": true,
+            "touchListener": "DoOpenDemo",
+            "scale9Enable": true,
+            "bgNormal": "uires/button.png",
+            "titleText": "Demo",
+            "fontName": "Arial",
+            "fontSize": 26
+        },
+        {
+            "width": "300",
+            "height": "74",
+            "x": 448,
+            "y": 101,
             "type": "Button",
             "touchEnabled": true,
             "touchListener": "DoLogin",
@@ -91,6 +107,16 @@
             "titleText": "登陆",
             "fontName": "Arial",
             "fontSize": 26
+        },
+        {
+            "width": "75",
+            "height": "23",
+            "x": 973,
+            "y": 521,
+            "type": "LabelTTF",
+            "string": "VisualUI",
+            "fontSize": 20,
+            "fontName": "Arial"
         }
     ]
 }

@@ -11,6 +11,8 @@
             "x": 149,
             "y": 54,
             "type": "Slider",
+            "touchEnabled": true,
+            "touchListener": "sub1listener",
             "percent": 37.5,
             "barBg": "res/default/SliderBack.png",
             "barProgress": "res/default/SliderBar.png",

@@ -14,6 +14,51 @@
             "anchorX": 0,
             "anchorY": 0,
             "path": "ui/sub1.ui"
+        },
+        {
+            "width": "1680",
+            "height": "1104",
+            "x": 738,
+            "y": 155,
+            "type": "Sprite",
+            "scaleX": 0.6312027100822173,
+            "scaleY": 0.746606334841629,
+            "spriteFrame": "uires/loginBg.jpg"
+        },
+        {
+            "width": "300",
+            "height": "300",
+            "x": 52,
+            "y": 47,
+            "type": "Node",
+            "anchorX": 0,
+            "anchorY": 0,
+            "children": [
+                {
+                    "width": "100.0%",
+                    "height": "300",
+                    "x": -37,
+                    "y": 50,
+                    "type": "Scale9",
+                    "anchorX": 0,
+                    "anchorY": 0,
+                    "spriteFrame": "res/default/Scale9.png"
+                }
+            ]
+        },
+        {
+            "width": "324",
+            "height": "48",
+            "x": 250,
+            "y": 228,
+            "type": "LabelAtlas",
+            "anchorX": 0,
+            "anchorY": 0,
+            "string": "453224679",
+            "charMapFile": "uires/lv_num.png",
+            "itemWidth": 36,
+            "itemHeight": 48,
+            "mapStartChar": "0"
         }
     ]
 }

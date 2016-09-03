@@ -55,6 +55,43 @@ function AddTouchEvent(node, addFunc, controlNode, baseFunc, touchListener)
     addFunc(node, handler(controlNode, listener))
 end
 
+function CalcWidth(node, width, parent)
+    local isWidthPer = false;
+    if not width and node then
+        width = node:getContentSize().width
+    end
+
+    width = tostring(width or 0)
+    local index = string.find(width, "%%")
+    if not parent or not index then
+        return tonumber(width), isWidthPer
+    end
+
+    isWidthPer = true
+    local str = string.sub(width, 1, index - 1)
+    width = parent:getContentSize().width * tonumber(string.sub(width, 1, index - 1)) / 100
+    return width, isWidthPer
+end
+
+function CalcHeight(node, height, parent)
+    local isHeightPer = false;
+    if not height and node then
+        height = node:getContentSize().height
+    end
+
+    height = tostring(height or 0)
+    local index = string.find(height, "%%")
+    if not parent or not index then
+        return tonumber(height), isHeightPer
+    end
+
+    isHeightPer = true
+    local str = string.sub(height, 1, index - 1)
+    height = parent:getContentSize().height * tonumber(string.sub(height, 1, index - 1)) / 100
+    return height, isHeightPer
+end
+
+
 function CocosGenBaseNodeByData(data, parent, isSetParent, controlNode)
     if not data then
         return
@@ -80,10 +117,12 @@ function CocosGenBaseNodeByData(data, parent, isSetParent, controlNode)
         node = ccui.Scale9Sprite:create()
     elseif data.type == "LabelTTF" then
         node = cc.LabelTTF:create()
+    elseif data.type == "LabelAtlas" then
+        node = cc.LabelAtlas:create()
     elseif data.type == "Input" then
         data.spriteBg = data.spriteBg or ""
-        local width = data.width or 100
-        local height = data.height or 20
+        local width = CalcWidth(node, data.width, parent)
+        local height = CalcHeight(node, data.height, parent)
         local frame = GetSpriteFrameForName(data.spriteBg)
         if not frame then
             node = ccui.EditBox:create(cc.size(width, height),  ccui.Scale9Sprite:create())
@@ -129,8 +168,8 @@ function CocosGenBaseNodeByData(data, parent, isSetParent, controlNode)
     local _ = data.id and node:setName(data.id)
     if data.width or data.height then
         local setFn = node.setPreferredSize or node.setContentSize
-        local width = tonumber(data.width) or node.getContentSize().width
-        local height = tonumber(data.height) or node.getContentSize().height
+        local width = CalcWidth(node, data.width, parent)
+        local height = CalcHeight(node, data.height, parent) tonumber(data.height)
         setFn(node, cc.size(width, height))
     end
 
@@ -138,10 +177,14 @@ function CocosGenBaseNodeByData(data, parent, isSetParent, controlNode)
     local _ = data.y and node:setPositionY(tonumber(data.y))
 
     local _ = data.left and node:setPositionX(tonumber(data.left))
-    local _ = data.right and parent and node:setPositionX(parent.getContentSize().width - tonumber(data.right))
+    local _ = data.right and parent and node:setPositionX(parent:getContentSize().width - tonumber(data.right))
 
     local _ = data.bottom and node:setPositionY(tonumber(data.bottom))
-    local _ = data.top and parent and node:setPositionY(parent.getContentSize().height - tonumber(data.top))
+    local _ = data.top and parent and node:setPositionY(parent:getContentSize().height - tonumber(data.top))
+
+
+    local _ = data.horizontal and parent and node:setPositionX(parent:getContentSize().width / 2 + tonumber(data.horizontal))
+    local _ = data.vertical and parent and node:setPositionY(parent:getContentSize().height / 2 + tonumber(data.vertical))
 
     if data.anchorX or data.anchorY then
         local anchorX = tonumber(data.anchorX) or node:getAnchorPoint().x
@@ -235,6 +278,16 @@ function CocosGenBaseNodeByData(data, parent, isSetParent, controlNode)
 
         local _ = data.select and node:setSelected(data.select)
         local _ = data.enable and node:setTouchEnabled(data.enable)
+    elseif data.type == "LabelAtlas" then
+        if data.charMapFile and cc.FileUtils:getInstance():isFileExist(data.charMapFile) then
+            local mapStar = string.byte('0')
+            if type(data.mapStartChar) == "number" then
+                mapStar = data.mapStartChar
+            else
+                mapStar = string.byte(data.mapStartChar)
+            end
+            node:initWithString(data.string, data.charMapFile, data.itemWidth, data.itemHeight, mapStar)
+        end
     end
 
 

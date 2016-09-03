@@ -12,7 +12,7 @@ require "test.UISub1"
 
 local function main()
     local scene = display.newScene("MAIN_SCENE_CLASS")
-    local node = UILayer:create("ui/Login.ui")
+    local node = UILayer:create("ui/test.ui")
     scene:addChild(node)
 
     -- display.newSprite("HelloWorld.png")
