@@ -1,0 +1,52 @@
+{
+    "width": "1280",
+    "height": "720",
+    "x": 0,
+    "y": 0,
+    "type": "Scene",
+    "children": [
+        {
+            "width": "100.0%",
+            "height": "100.0%",
+            "x": 0,
+            "y": 0,
+            "type": "Scale9",
+            "anchorX": 0,
+            "anchorY": 0,
+            "spriteFrame": "uires/huodongdi.png"
+        },
+        {
+            "width": "150",
+            "height": "34",
+            "x": 627,
+            "y": 427,
+            "type": "LabelTTF",
+            "string": "三国主界面",
+            "fontSize": 30,
+            "fontName": "Arial"
+        },
+        {
+            "width": "210",
+            "height": "68",
+            "x": 631,
+            "y": 530,
+            "type": "LabelTTF",
+            "string": "恭喜您成功登陆\n",
+            "fontSize": 30,
+            "fontName": "Arial"
+        },
+        {
+            "width": "228",
+            "height": "74",
+            "x": 671,
+            "y": 190,
+            "type": "Button",
+            "touchEnabled": true,
+            "touchListener": "DoOpenDemo",
+            "bgNormal": "uires/button.png",
+            "titleText": "Demo",
+            "fontName": "Arial",
+            "fontSize": 26
+        }
+    ]
+}
