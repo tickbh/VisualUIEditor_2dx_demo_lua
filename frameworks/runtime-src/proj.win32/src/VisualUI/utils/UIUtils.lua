@@ -25,7 +25,7 @@ end
 function GetCurJsonData(info)
     dump(info)
     if type(info) == "string" then
-        local jsonData = UIDataUtils.GetJsonDataFromUI(info)
+        local jsonData = UIDataUtils.GetJsonDataFromFile(info)
         if not jsonData then
             return nil
         end
@@ -91,6 +91,22 @@ function CalcHeight(node, height, parent)
     return height, isHeightPer
 end
 
+local function addTouchListenerCallback(node, callback) 
+    node:addTouchEventListener(function(sender, eventType)
+        local event = {}
+        if eventType == 0 then
+            event.name = "began"
+        elseif eventType == 1 then
+            event.name = "moved"
+        elseif eventType == 2 then
+            event.name = "ended"
+        else
+            event.name = "canceled"
+        end
+        event.target = sender
+        callback(event)
+    end)
+end
 
 function CocosGenBaseNodeByData(data, parent, isSetParent, controlNode)
     if not data then
@@ -98,6 +114,7 @@ function CocosGenBaseNodeByData(data, parent, isSetParent, controlNode)
     end
 
     local node = nil
+    local color = nil
     if isSetParent then
         node = parent
     elseif data.path then
@@ -113,6 +130,7 @@ function CocosGenBaseNodeByData(data, parent, isSetParent, controlNode)
         node = temple:create(data.path, parent)
     elseif data.type == "UIImage" then
         node = ccui.ImageView:create()
+        local _ = data.touchEnabled and AddTouchEvent(node, addTouchListenerCallback, controlNode, controlNode.eventListener, data.touchListener)
     elseif data.type == "UIScale9" then
         node = ccui.Scale9Sprite:create()
     elseif data.type == "UIText" then
@@ -140,23 +158,39 @@ function CocosGenBaseNodeByData(data, parent, isSetParent, controlNode)
         AddTouchEvent(node, node.onEvent, controlNode, controlNode.eventListener, data.touchListener)
     elseif data.type == "UIButton" then
         node = ccui.Button:create()
-        local func = function(node, callback) 
-            node:addTouchEventListener(function(sender, eventType)
-                local event = {}
-                if eventType == 0 then
-                    event.name = "began"
-                elseif eventType == 1 then
-                    event.name = "moved"
-                elseif eventType == 2 then
-                    event.name = "ended"
-                else
-                    event.name = "canceled"
-                end
-                event.target = sender
-                callback(event)
-            end)
+        AddTouchEvent(node, addTouchListenerCallback, controlNode, controlNode.eventListener, data.touchListener)
+    elseif data.type == "UIScrollView" then
+        node = ccui.ScrollView:create()
+        AddTouchEvent(node, addTouchListenerCallback, controlNode, controlNode.eventListener, data.touchListener)
+    elseif data.type == "UIListView" then
+        node = ccui.ListView:create()
+        AddTouchEvent(node, addTouchListenerCallback, controlNode, controlNode.eventListener, data.touchListener)
+    elseif data.type == "UIRichText" then
+        local config = {}
+        if data.oriFontSize then
+            config.fontSize = data.oriFontSize
         end
-        AddTouchEvent(node, func, controlNode, controlNode.eventListener, data.touchListener)
+        if data.oriOSize then
+            config.osize = data.oriOSize
+        end
+
+        color = CovertToColor(data.oriColor)
+        if color then
+            config.color = color
+        end
+
+        color = CovertToColor(data.oriOColor)
+        if color then
+            config.ocolor = color
+        end
+        local text = data.text or ""
+        local analyse = UIDataUtils.TryAnalyseLang(text)
+        if analyse.isKey then
+            text = analyse.value
+        else
+            text = data.text
+        end
+        node = UI_RICHTEXT_CLASS:create(data.text or "", {}, config)
     else
         node = ccui.Widget:create()
     end
@@ -225,23 +259,31 @@ function CocosGenBaseNodeByData(data, parent, isSetParent, controlNode)
 
     local _ = data.visible and node:setVisible(data.visible)
 
-    local color = CovertToColor(data.color)
+    color = CovertToColor(data.color)
     if color then
         node:setColor(color)
     end
 
-    if data.type == "UIText" then
-        local _ = data.string and node:setString(data.string)
+    if data.path then
+        local _ = data.setCustomData and data.setCustomData(data)
+    elseif data.type == "UIText" then
+        if data.string then
+            local analyse = UIDataUtils.TryAnalyseLang(data.string)
+            if analyse.isKey then
+                node:setString(analyse.value)
+            else
+                node:setString(data.string)
+            end
+        end
         local _ = data.textAlign and node:setTextHorizontalAlignment(data.textAlign)
         local _ = data.verticalAlign and node:setTextVerticalAlignment(data.verticalAlign)
         local _ = data.fontSize and node:setFontSize(data.fontSize)
         local _ = data.fontName and node:setFontName(data.fontName)
-        local _ = data.string and node:setString(data.string)
-        color = CovertToColor(data.fillStyle)
-        local _ = color and node:setFontFillColor(color, true)
-        -- color = CovertToColor(data.strokeStyle)
-        -- local _ = color and node:setFontFillColor(color, true)
-
+        color = CovertToColor(data.outlineColor)
+        local _ = color and node:enableOutline(color, data.outlineSize or 1)
+        if data.boundingWidth or data.boundingHeight then
+            node:setTextAreaSize(cc.size(data.boundingWidth or 0, data.boundingHeight or 0))
+        end
     elseif data.type == "UIInput" then
 
         local _ = data.string and node:setText(data.string)
@@ -304,14 +346,30 @@ function CocosGenBaseNodeByData(data, parent, isSetParent, controlNode)
         local _ = data.enable and node:setTouchEnabled(data.enable)
     elseif data.type == "UITextAtlas" then
         if data.charMapFile and cc.FileUtils:getInstance():isFileExist(data.charMapFile) then
-            local mapStar = string.byte('0')
-            if type(data.mapStartChar) == "number" then
-                mapStar = data.mapStartChar
-            else
-                mapStar = string.byte(data.mapStartChar)
-            end
-            node:setProperty(data.string, data.charMapFile, data.itemWidth, data.itemHeight, mapStar)
+            node:setProperty(data.string, data.charMapFile, data.itemWidth, data.itemHeight, data.mapStartChar)
         end
+    elseif data.type == "UIScrollView" or data.type == "UIListView" then
+        if data.innerPosX or data.innerPosY then
+            node:setInnerContainerPosition(cc.p(data.innerPosX or 0, data.innerPosY or 0));
+        end
+
+        if data.innerSizeW or data.innerSizeH then
+            node:setInnerContainerSize(cc.p(data.innerSizeW or 0, data.innerSizeH or 0));
+        end
+
+        local _ = data.direction and node:setDirection(data.direction)
+        local _ = type(data.scrollBarEnabled) == "boolean" and node:setTouchEnabled(data.scrollBarEnabled)
+        local _ = type(data.inertiaScrollEnabled) == "boolean" and node:setInertiaScrollEnabled(data.inertiaScrollEnabled)
+        local _ = type(data.bounceEnabled) == "boolean" and node:setBounceEnabled(data.bounceEnabled)
+
+    elseif data.type == "UIRichText" then
+        local _ = data.textAlign and node:setTextHorizontalAlignment(data.textAlign)
+        local _ = data.verticalAlign and node:setTextVerticalAlignment(data.verticalAlign)
+    end
+
+    if data.type == "UIListView" then
+        local _ = data.gravity and node:setGravity(data.gravity)
+        local _ = data.itemsMargin and node:setItemsMargin(data.itemsMargin)
     end
 
 
@@ -369,3 +427,28 @@ function GetSpriteFrameForName(name)
     end
     return frame
 end
+
+--合并一个table
+function merge(src, t)
+    if type(src) ~= "table" or type(t) ~= "table" then
+        return src
+    end
+    for k, v in pairs(t) do
+        src[k] = v
+    end
+    return src
+end
+
+-- 复制一个table
+function dup(t)
+    if (type(t) ~= "table") then
+        return t
+    end
+
+    local new_t = {}
+    for k, v in pairs(t) do
+        new_t[k] = v
+    end
+    return new_t
+end
+

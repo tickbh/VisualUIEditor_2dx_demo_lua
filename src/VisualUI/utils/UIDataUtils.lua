@@ -3,7 +3,10 @@ module("UIDataUtils", package.seeall)
 
 local CacheDataTable = {}
 
-function GetJsonDataFromUI(name, fullpath)
+local MultiLanguageData = {}
+local CurrentLanguageSet = "Zh"
+
+function GetJsonDataFromFile(name, fullpath)
     if CacheDataTable[name] then
         return CacheDataTable[name]
     end
@@ -27,4 +30,37 @@ function GetJsonDataFromUI(name, fullpath)
     end
     CacheDataTable[name] = ret
     return ret
+end
+
+function SetLanguagePath(path)
+    MultiLanguageData = GetJsonDataFromFile(path) or {}
+end
+
+function SetLanguageData(data)
+    MultiLanguageData = data
+end
+
+function SetCurrentLangSet(langSet)
+    CurrentLanguageSet = langSet
+end
+
+function GetLangFromConfig(key) 
+    if MultiLanguageData[key] == nil then
+        return nil
+    end
+    return MultiLanguageData[key][CurrentLanguageSet] or ""
+end
+
+function TryAnalyseLang(str)
+    local data = {isKey = false}
+    if string.find(str, "@") == 1 then
+        local key = string.sub(str, 2)
+        local lang = GetLangFromConfig(key)
+        if lang ~= nil then
+            data.value = lang
+            data.isKey = true
+            data.key = key
+        end
+    end
+    return data
 end

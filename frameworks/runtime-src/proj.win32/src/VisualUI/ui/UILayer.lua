@@ -24,3 +24,7 @@ function UILayer:eventListener(event)
     end
     dump(event)
 end
+
+function UILayer:setCustomData(data)
+    dump(data)
+end

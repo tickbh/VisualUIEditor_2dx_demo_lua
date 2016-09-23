@@ -6,78 +6,92 @@
     "type": "Scene",
     "children": [
         {
-            "width": "89",
-            "height": "28",
+            "width": "252",
+            "height": "48",
+            "x": 401,
+            "y": 331,
+            "type": "UITextAtlas",
+            "touchEnabled": false,
+            "string": "4532246",
+            "charMapFile": "uires/lv_num.png",
+            "itemWidth": 36,
+            "itemHeight": 48,
+            "mapStartChar": "0"
+        },
+        {
+            "width": "228",
+            "height": "74",
+            "x": 455,
+            "y": 239,
+            "type": "UIScale9",
+            "spriteFrame": "uires/xinxikuang.png"
+        },
+        {
+            "width": "141",
+            "height": "72",
             "x": 464,
             "y": 239,
             "type": "UIText",
             "touchEnabled": false,
-            "string": "VisualUI",
-            "fontSize": 24,
-            "fontName": "Arial"
+            "string": "VisualUIfd\ndsa111a",
+            "fontSize": 30,
+            "fontName": "Arial",
+            "outlineColor": [
+                9,
+                192,
+                27,
+                161
+            ],
+            "outlineSize": 2
         },
         {
-            "width": "46",
-            "height": "36",
-            "x": 618,
-            "y": 135,
+            "width": "228",
+            "height": "74",
+            "x": 886,
+            "y": 106,
             "type": "UIButton",
             "touchEnabled": true,
-            "bgNormal": "res/default/ButtonNormal.png",
+            "scale9Enable": true,
+            "bgNormal": "uires/button.png",
+            "titleText": "rewrew909",
             "fontName": "Arial",
-            "fontSize": 16
+            "fontSize": 30,
+            "fontColor": [
+                57,
+                46,
+                187,
+                255
+            ]
         },
         {
-            "width": "40",
-            "height": "40",
-            "x": 499,
-            "y": 106,
-            "type": "UICheckBox",
-            "touchEnabled": true,
-            "back": "res/default/CheckBoxNormal.png",
-            "backSelect": "res/default/CheckBoxSelect.png",
-            "active": "res/default/CheckBoxNodeNormal.png",
-            "backDisable": "res/default/CheckBoxDisable.png",
-            "activeDisable": "res/default/CheckBoxNodeDisable.png",
-            "select": true
-        },
-        {
-            "width": "200",
-            "height": "14",
-            "x": 714,
-            "y": 260,
+            "width": "195",
+            "height": "270",
+            "x": 873,
+            "y": 345,
             "type": "UISlider",
             "touchEnabled": true,
-            "barBg": "res/default/SliderBack.png",
-            "barProgress": "res/default/SliderBar.png",
-            "barNormalBall": "res/default/SliderNodeNormal.png"
+            "percent": 64,
+            "barBg": "HelloWorld.png",
+            "barProgress": "res/default/SliderBar.png"
         },
         {
             "width": "40",
             "height": "40",
-            "x": 105,
-            "y": 287,
+            "x": 153,
+            "y": 453,
             "type": "UIWidget",
             "touchEnabled": false,
             "children": [
                 {
-                    "width": "46",
-                    "height": "46",
-                    "x": 0,
-                    "y": 0,
+                    "width": "200",
+                    "height": "27",
+                    "x": 72,
+                    "y": 1,
                     "type": "UIImage",
-                    "touchEnabled": false,
-                    "spriteFrame": "res/default/Sprite.png"
+                    "touchEnabled": true,
+                    "spriteFrame": "uires/gold_num.png"
                 }
             ]
-        },
-        {
-            "width": "46",
-            "height": "46",
-            "x": 295,
-            "y": 161,
-            "type": "UIScale9",
-            "spriteFrame": "res/default/Scale9.png"
         },
         {
             "width": "100",
@@ -85,6 +99,7 @@
             "x": 356,
             "y": 56,
             "type": "UIInput",
+            "string": "fdsdsfgds",
             "fontName": "Arial",
             "fontColor": [
                 255,
@@ -128,25 +143,186 @@
             "select": true
         },
         {
-            "width": "140",
-            "height": "27",
-            "x": 401,
-            "y": 331,
-            "type": "UITextAtlas",
-            "touchEnabled": false,
-            "string": "4532246",
-            "charMapFile": "res/default/AltasNum.png",
-            "itemWidth": 20,
-            "itemHeight": 27,
-            "mapStartChar": "0"
+            "width": "300",
+            "height": "100",
+            "x": 746,
+            "top": 10,
+            "type": "SubPath:ui/sub1.ui",
+            "anchorX": 0,
+            "anchorY": 1,
+            "path": "ui/sub1.ui",
+            "test": "fdfdssd"
         },
         {
-            "width": "46",
-            "height": "46",
-            "x": 223,
-            "y": 293,
-            "type": "UIScale9",
-            "spriteFrame": "res/default/Scale9.png"
+            "width": "200",
+            "height": "100",
+            "x": 686,
+            "y": 370,
+            "type": "UIScrollView",
+            "anchorX": 0,
+            "anchorY": 0,
+            "touchEnabled": true,
+            "innerPosX": 0,
+            "innerPosY": -100,
+            "innerSizeW": 200,
+            "innerSizeH": 200,
+            "direction": "0",
+            "scrollBarEnabled": true,
+            "children": [
+                {
+                    "width": "200",
+                    "height": "14",
+                    "x": 123,
+                    "y": 163,
+                    "type": "UISlider",
+                    "touchEnabled": true,
+                    "percent": 42.15,
+                    "barBg": "res/default/SliderBack.png",
+                    "barProgress": "res/default/SliderBar.png"
+                },
+                {
+                    "width": "40",
+                    "height": "40",
+                    "x": 40,
+                    "y": 161,
+                    "type": "UICheckBox",
+                    "touchEnabled": true,
+                    "back": "res/default/CheckBoxNormal.png",
+                    "backSelect": "res/default/CheckBoxSelect.png",
+                    "active": "res/default/CheckBoxNodeNormal.png",
+                    "backDisable": "res/default/CheckBoxDisable.png",
+                    "activeDisable": "res/default/CheckBoxNodeDisable.png",
+                    "select": true
+                }
+            ]
+        },
+        {
+            "width": "200",
+            "height": "200",
+            "x": 479,
+            "y": 394,
+            "type": "UIListView",
+            "anchorX": 0,
+            "anchorY": 0,
+            "touchEnabled": true,
+            "gravity": 5,
+            "itemsMargin": 0,
+            "innerPosX": 0,
+            "innerPosY": 0,
+            "innerSizeW": 200,
+            "innerSizeH": 200,
+            "direction": 1,
+            "scrollBarEnabled": true,
+            "children": [
+                {
+                    "width": "40",
+                    "height": "40",
+                    "x": 0,
+                    "y": 160,
+                    "type": "UICheckBox",
+                    "anchorX": 0,
+                    "anchorY": 0,
+                    "touchEnabled": true,
+                    "back": "res/default/CheckBoxNormal.png",
+                    "backSelect": "res/default/CheckBoxSelect.png",
+                    "active": "res/default/CheckBoxNodeNormal.png",
+                    "backDisable": "res/default/CheckBoxDisable.png",
+                    "activeDisable": "res/default/CheckBoxNodeDisable.png",
+                    "select": true
+                },
+                {
+                    "width": "40",
+                    "height": "40",
+                    "x": 20,
+                    "y": 140,
+                    "type": "UICheckBox",
+                    "touchEnabled": true,
+                    "back": "res/default/CheckBoxNormal.png",
+                    "backSelect": "res/default/CheckBoxSelect.png",
+                    "active": "res/default/CheckBoxNodeNormal.png",
+                    "backDisable": "res/default/CheckBoxDisable.png",
+                    "activeDisable": "res/default/CheckBoxNodeDisable.png",
+                    "select": true
+                },
+                {
+                    "width": "40",
+                    "height": "40",
+                    "x": 20,
+                    "y": 100,
+                    "type": "UICheckBox",
+                    "touchEnabled": true,
+                    "back": "res/default/CheckBoxNormal.png",
+                    "backSelect": "res/default/CheckBoxSelect.png",
+                    "active": "res/default/CheckBoxNodeNormal.png",
+                    "backDisable": "res/default/CheckBoxDisable.png",
+                    "activeDisable": "res/default/CheckBoxNodeDisable.png",
+                    "select": true
+                },
+                {
+                    "width": "40",
+                    "height": "40",
+                    "x": 20,
+                    "y": 60,
+                    "type": "UICheckBox",
+                    "touchEnabled": true,
+                    "back": "res/default/CheckBoxNormal.png",
+                    "backSelect": "res/default/CheckBoxSelect.png",
+                    "active": "res/default/CheckBoxNodeNormal.png",
+                    "backDisable": "res/default/CheckBoxDisable.png",
+                    "activeDisable": "res/default/CheckBoxNodeDisable.png",
+                    "select": true
+                }
+            ]
+        },
+        {
+            "width": "100",
+            "height": "100",
+            "x": 151,
+            "y": 543,
+            "type": "UIRichText",
+            "touchEnabled": false,
+            "oriColor": [
+                29,
+                158,
+                43,
+                255
+            ],
+            "oriFontSize": 20,
+            "oriOSize": 0,
+            "text": "V[cr]i[f30]su[/c]al[/f]UI"
+        },
+        {
+            "width": "91",
+            "height": "28",
+            "x": 337,
+            "y": 485,
+            "type": "UIText",
+            "touchEnabled": false,
+            "string": "@gf",
+            "fontSize": 24,
+            "fontName": "Arial"
+        },
+        {
+            "width": "200",
+            "height": "14",
+            "x": 160,
+            "y": 316,
+            "type": "UISlider",
+            "touchEnabled": true,
+            "percent": 48.98,
+            "barBg": "res/default/SliderBack.png",
+            "barProgress": "res/default/SliderBar.png"
+        },
+        {
+            "width": "48",
+            "height": "28",
+            "x": 329,
+            "y": 583,
+            "type": "UIText",
+            "touchEnabled": false,
+            "string": "@test",
+            "fontSize": 24,
+            "fontName": "Arial"
         }
     ]
 }

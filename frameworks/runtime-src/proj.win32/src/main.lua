@@ -11,6 +11,9 @@ require "VisualUI.init"
 require "test.UISub1"
 
 local function main()
+
+    UIDataUtils.SetLanguagePath("lang/lang.txt")
+	
     local scene = display.newScene("MAIN_SCENE_CLASS")
     local node = UILayer:create("ui/test.ui")
     scene:addChild(node)
